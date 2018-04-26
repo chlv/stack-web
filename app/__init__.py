@@ -9,10 +9,18 @@ app.config.from_object("config")
 api = Api(app)
 db = SQLAlchemy(app)
 db.create_all()
+parase = reqparse.RequestParser()
 
-class RecordDriverConfig(Resource):
-    def get(self, config):
-        return "config:{0}".format(config)
+class DriverConfiginfo(Resource):
+    def post(self):
+        parase.add_argument("platform", type=str)
+        args = parase.parse_args()
+        task = {"platform": args["platform"]}
+        print(task)
+        return task, 201
+
+    def get(self):
+        return {"hello": "World1"}
 
 
 
@@ -21,7 +29,7 @@ class RecordDriverConfig(Resource):
 #    return "Hello World!"
 
 
-api.add_resource(RecordDriverConfig, "/uploadconfig/<config>")
+api.add_resource(DriverConfiginfo, "/configinfo/")
 if __name__ == "__main__":
     app.debug = True
-    app.run()
+    app.run(threaded=True)
