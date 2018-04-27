@@ -1,4 +1,4 @@
-from app.__init__ import db
+from app import db
 
 
 class Configfile(db.Model):
@@ -18,17 +18,17 @@ class Configfile(db.Model):
     date = db.Column(db.String(64))
 
     def __init__(self, configfile):
-        self.project = configfile["project"]
-        self.devicename = configfile["devicename"]
-        self.drivername = configfile["drivername"]
-        self.path = configfile["path"]
+        self.project = configfile["Project"]
+        self.devicename = configfile["DeviceName"]
+        self.drivername = configfile["DriverName"]
+        self.path = configfile["PATH"]
         self.inffile = configfile["inffile"]
-        self.version = configfile["version"]
-        self.unzip = configfile["unzip"]
-        self.unzippar = configfile["unzippar"]
-        self.installmethod = configfile["installmethod"]
-        self.installpar = configfile["installpar"]
-        self.did = configfile["did"]
-        self.vid = configfile["vid"]
-        self.date = configfile["date"]
+        self.version = configfile["Version"]
+        self.unzip = configfile["Unzip"]
+        self.unzippar = configfile["UnzipPar"]
+        self.installmethod = configfile["InstallMethod"]
+        self.installpar = configfile["InstallPar"]
+        self.did = configfile["DID"]
+        self.vid = configfile["VID"]
+        self.date = configfile["Date"]
 
