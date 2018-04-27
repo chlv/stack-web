@@ -1,9 +1,14 @@
 from flask_restful import reqparse, Resource
 from app.modules import Configfile
-from app import db, api
+from app import db, api, ma
 from flask import jsonify
 
 parase = reqparse.RequestParser()
+
+
+
+
+
 
 class DriverConfiginfo(Resource):
     def post(self):
@@ -30,9 +35,14 @@ class DriverConfiginfo(Resource):
         return args, 201
 
     def get(self):
+        configfile_schema = ConfigfileSchema(many=True)
         result = Configfile.query.all()
-        print(result)
-        return jsonify(["first", "second"]), 200
+        return configfile_schema.dump(result).data, 200
+
+
+class ConfigfileSchema(ma.ModelSchema):
+    class Meta:
+        model = Configfile
 
 
 api.add_resource(DriverConfiginfo, "/configinfo/")
