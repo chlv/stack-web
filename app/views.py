@@ -1,7 +1,8 @@
 from flask_restful import reqparse, Resource
 from app.modules import Configfile
-from app import db, api, ma
-from flask import jsonify
+from app import db, api, ma, app
+from flask import jsonify, render_template, request
+from app.forms import LoginForm
 
 parase = reqparse.RequestParser()
 
@@ -40,9 +41,21 @@ class DriverConfiginfo(Resource):
         return configfile_schema.dump(result).data, 200
 
 
+    def xxx(self):
+        data = jsonify()
+        render_template("xxx.html", data=data)
+
 class ConfigfileSchema(ma.ModelSchema):
     class Meta:
         model = Configfile
+
+
+
+@app.route("/login", methods=["GET", "POST"])
+def index():
+    if request.method == "GET":
+        loginform = LoginForm()
+        return render_template("login.html", title="Login", form=loginform)
 
 
 api.add_resource(DriverConfiginfo, "/configinfo/")
