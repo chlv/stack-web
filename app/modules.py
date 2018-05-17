@@ -1,5 +1,5 @@
 from app import db
-from flask_login import UserMixin
+
 
 class Configfile(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
@@ -33,8 +33,13 @@ class Configfile(db.Model):
         self.date = configfile["Date"]
 
 
-class User(UserMixin, db.Model):
+class User(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String(64))
     password = db.Column(db.String(128))
     email = db.Column(db.String(64))
+
+    def __init__(self, userinfo):
+        self.name = userinfo["name"]
+        self.password = userinfo["password"]
+        self.email = userinfo["email"]
